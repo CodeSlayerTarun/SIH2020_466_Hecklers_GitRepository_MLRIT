@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:memories/models/user_model.dart';
 import 'package:memories/screens/capture_trip_screen.dart';
 import 'package:memories/screens/view_trips_screen.dart';
 import 'package:memories/services/auth.dart';
@@ -21,11 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Center(
             child: (loggedIn)
-                ? StreamProvider<User>.value(
-                    value: authService.streamUser(uid: user.uid),
-                    initialData: User(displayName: '', photoURL: '', uid: ''),
-                    child: UserDetails(),
-                  )
+                ? StreamBuilder<DocumentSnapshot>(
+                    stream: authService.db
+                        .collection('users')
+                        .document(user.uid)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      var userSnapshot = snapshot.data;
+                      print(userSnapshot.data);
+                      return UserDetails(
+                        userDetails: userSnapshot.data,
+                      );
+                    })
                 : RaisedButton(
                     onPressed: () {
                       authService.googleSignIn();
@@ -38,26 +45,31 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class UserDetails extends StatelessWidget {
+  final Map<String, dynamic> userDetails;
+  UserDetails({this.userDetails});
   @override
   Widget build(BuildContext context) {
-    var userDetails = Provider.of<User>(context);
-    print(userDetails.displayName);
-    print(userDetails.uid);
+    print(userDetails['displayName']);
+    print(userDetails['uid']);
     return Container(
       child: Column(
         children: <Widget>[
-          Text(userDetails.displayName),
+          Text(userDetails['displayName']),
           RaisedButton(
             onPressed: () {
-              Navigator.pushNamed(context, ViewTrip.route,
-                  arguments: {'uid': userDetails.uid});
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ViewTrip(
+                            uid: userDetails['uid'],
+                          )));
             },
             child: Text('ViewTrip'),
           ),
           RaisedButton(
             onPressed: () {
               Navigator.pushNamed(context, CaptureTrip.route,
-                  arguments: {'uid': userDetails.uid});
+                  arguments: {'uid': userDetails['uid']});
             },
             child: Text('CaptureTrip'),
           ),

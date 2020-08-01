@@ -28,7 +28,7 @@ class _MemoriesState extends State<Memories> {
           HomeScreen.route: (context) => HomeScreen(),
           ViewTrip.route: (context) => ViewTrip(),
         },
-        initialRoute: ViewTrip.route,
+        initialRoute: HomeScreen.route,
       ),
     );
   }

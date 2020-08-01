@@ -4,12 +4,18 @@ import 'package:memories/components/trip_card.dart';
 
 class ViewTrip extends StatefulWidget {
   static String route = 'ViewTrip';
+  final String uid;
+  ViewTrip({this.uid});
   @override
-  _ViewTripState createState() => _ViewTripState();
+  _ViewTripState createState() => _ViewTripState(userid: uid);
 }
 
 class _ViewTripState extends State<ViewTrip> {
+  String userid;
   final Firestore _db = Firestore.instance;
+
+  _ViewTripState({this.userid});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +50,7 @@ class _ViewTripState extends State<ViewTrip> {
                 child: StreamBuilder<QuerySnapshot>(
                     stream: _db
                         .collection('users')
-                        .document('lkdoNOZgM0M7Dbr8hyivvxnXsK22')
+                        .document(userid)
                         .collection('trips')
                         .snapshots(),
                     builder: (context, snapshot) {

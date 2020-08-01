@@ -219,30 +219,44 @@ class _CaptureTripState extends State<CaptureTrip> {
               child: Column(
                 children: <Widget>[
                   (!_isTripping)
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              width: 150,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Trip Name',
-                                ),
-                                onChanged: (value) {
-                                  _tripName = value;
-                                },
+                      ? Container(
+                          child: Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    width: 150,
+                                    child: SizedBox(
+                                      width: 30.0,
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          hintText: 'Trip Name',
+                                          fillColor: Colors.white,
+                                        ),
+                                        onChanged: (value) {
+                                          _tripName = value;
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 50.0,
+                                  ),
+                                  RaisedButton(
+                                    color: Colors.greenAccent,
+                                    child: Text('Start Trip'),
+                                    onPressed: () {
+                                      _isTripping = true;
+                                      _startTime = DateTime.now();
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
-                            RaisedButton(
-                              color: Colors.greenAccent,
-                              child: Text('Start Trip'),
-                              onPressed: () {
-                                _isTripping = true;
-                                _startTime = DateTime.now();
-                              },
-                            ),
-                          ],
+                          ),
                         )
                       : RaisedButton(
                           color: Colors.redAccent,

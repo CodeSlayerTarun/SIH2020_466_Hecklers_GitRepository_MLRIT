@@ -8,7 +8,7 @@ class AuthService {
   // Dependencies
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final Firestore _db = Firestore.instance;
+  final Firestore db = Firestore.instance;
   final StreamController<Map<String, dynamic>> controller =
       StreamController<Map<String, dynamic>>();
   // Shared State for Widgets
@@ -16,7 +16,7 @@ class AuthService {
   Stream<Map<String, dynamic>> profile; // custom user data in Firestore
 
   Stream<User> streamUser({String uid}) {
-    return _db
+    return db
         .collection('users')
         .document(uid)
         .snapshots()
@@ -42,7 +42,7 @@ class AuthService {
   }
 
   void updateUserData(FirebaseUser user) async {
-    DocumentReference ref = _db.collection('users').document(user.uid);
+    DocumentReference ref = db.collection('users').document(user.uid);
     return ref.setData({
       'uid': user.uid,
       'email': user.email,

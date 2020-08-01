@@ -27,11 +27,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         .document(user.uid)
                         .snapshots(),
                     builder: (context, snapshot) {
-                      var userSnapshot = snapshot.data;
-                      print(userSnapshot.data);
-                      return UserDetails(
-                        userDetails: userSnapshot.data,
-                      );
+                      if (snapshot.hasData) {
+                        var userSnapshot = snapshot.data;
+                        print(userSnapshot.data);
+                        if (userSnapshot.data != null) {
+                          return UserDetails(
+                            userDetails: userSnapshot.data,
+                          );
+                        } else {
+                          authService.signOut();
+                          return RaisedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                                'User not loggedin successfully, Try Again'),
+                          );
+                        }
+                      } else {
+                        return Text('Loading');
+                      }
                     })
                 : RaisedButton(
                     onPressed: () {

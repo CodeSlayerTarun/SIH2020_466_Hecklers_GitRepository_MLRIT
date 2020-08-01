@@ -14,7 +14,10 @@ class _ViewTripState extends State<ViewTrip> {
   String userid;
   final Firestore _db = Firestore.instance;
 
-  _ViewTripState({this.userid});
+  _ViewTripState({this.userid}) {
+    print('ViewTrip');
+    print(userid);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,19 +59,23 @@ class _ViewTripState extends State<ViewTrip> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var trips = snapshot.data.documents;
-                        List<TripCard> tripsDetails = [];
-                        for (var trip in trips) {
-                          print(trip.data);
-                          tripsDetails.add(
-                            TripCard(
-                              tripDetails: trip.data,
-                            ),
-                            // Text(trip.data.toString()),
+                        if (trips.length > 0) {
+                          List<TripCard> tripsDetails = [];
+                          for (var trip in trips) {
+                            print(trip.data);
+                            tripsDetails.add(
+                              TripCard(
+                                tripDetails: trip.data,
+                              ),
+                              // Text(trip.data.toString()),
+                            );
+                          }
+                          return ListView(
+                            children: tripsDetails,
                           );
+                        } else {
+                          return Text('No user trips');
                         }
-                        return ListView(
-                          children: tripsDetails,
-                        );
                         // return Text('Hello');
                       } else {
                         return Text('No trips stored yet');

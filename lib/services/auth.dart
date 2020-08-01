@@ -42,13 +42,35 @@ class AuthService {
   }
 
   void updateUserData(FirebaseUser user) async {
+    var userDetails;
     DocumentReference ref = db.collection('users').document(user.uid);
-    return ref.setData({
-      'uid': user.uid,
-      'email': user.email,
-      'photoURL': user.photoUrl,
-      'displayName': user.displayName
-    }, merge: true);
+    await ref.get().then((value) {
+      userDetails = value.data;
+    });
+    if (userDetails != null) {
+      var totalDistance;
+      if (userDetails['totalDistance'] == null) {
+        totalDistance = 0.0;
+      } else {
+        totalDistance = userDetails['totalDistance'];
+      }
+      return ref.setData({
+        'uid': userDetails['uid'],
+        'email': userDetails['email'],
+        'photoURL': userDetails['photoURL'],
+        'displayName': userDetails['displayName'],
+        'totalDistance': totalDistance,
+      }, merge: true);
+    } else {
+      print('Setting Default data');
+      return ref.setData({
+        'uid': user.uid,
+        'email': user.email,
+        'photoURL': user.photoUrl,
+        'displayName': user.displayName,
+        'totalDistance': 0.0
+      }, merge: true);
+    }
   }
 
   Stream returnEmptyUser() {

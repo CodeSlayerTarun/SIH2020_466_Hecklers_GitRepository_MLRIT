@@ -27,18 +27,12 @@ class _ViewTripState extends State<ViewTrip> {
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text(
-                      'Trips',
-                      style: TextStyle(
-                        fontSize: 60.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Image.asset('assets/images/way.png'),
-                  ],
+                child: Text(
+                  'Trips.',
+                  style: TextStyle(
+                    fontSize: 60.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

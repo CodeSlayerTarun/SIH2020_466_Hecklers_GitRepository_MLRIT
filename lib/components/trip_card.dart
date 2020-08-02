@@ -19,10 +19,11 @@ class _TripCardState extends State<TripCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500.0,
+      height: 300.0,
       child: Card(
         margin: EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
               flex: 3,
@@ -33,12 +34,27 @@ class _TripCardState extends State<TripCard> {
             Expanded(
               flex: 1,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(tripData['tripName']),
-                  Text((tripData['tripDistance']).toString()),
-                  Text((tripData['topSpeed']).toString()),
-                  Text(tripData['endTime'].toString()),
-                  Text(tripData['endTime'].toString()),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          tripData['tripName'],
+                          style: TextStyle(
+                            fontSize: 25.0,
+                          ),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.open_in_new),
+                            onPressed: () {
+                              print('Button Pressed');
+                            })
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

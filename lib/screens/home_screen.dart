@@ -64,8 +64,6 @@ class UserDetails extends StatelessWidget {
   UserDetails({this.userDetails});
   @override
   Widget build(BuildContext context) {
-    print(userDetails['displayName']);
-    print(userDetails['uid']);
     return Container(
       child: Column(
         children: <Widget>[

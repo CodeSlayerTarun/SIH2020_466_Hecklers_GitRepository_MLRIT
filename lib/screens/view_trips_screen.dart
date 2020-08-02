@@ -14,11 +14,7 @@ class _ViewTripState extends State<ViewTrip> {
   String userid;
   final Firestore _db = Firestore.instance;
 
-  _ViewTripState({this.userid}) {
-    print('ViewTrip');
-    print(userid);
-  }
-
+  _ViewTripState({this.userid});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +58,6 @@ class _ViewTripState extends State<ViewTrip> {
                         if (trips.length > 0) {
                           List<TripCard> tripsDetails = [];
                           for (var trip in trips) {
-                            print(trip.data);
                             tripsDetails.add(
                               TripCard(
                                 tripDetails: trip.data,

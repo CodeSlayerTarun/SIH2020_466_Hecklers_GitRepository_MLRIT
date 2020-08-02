@@ -161,12 +161,20 @@ class _CaptureTripState extends State<CaptureTrip> {
     });
   }
 
+  Future<void> updateTotalDistance() async {
+    var userDetails;
+    DocumentReference ref = _db.collection('users').document(uid);
+    await ref.get().then((value) {
+      userDetails = value.data;
+    });
+    var totalDistance = userDetails['totalDistance'];
+    totalDistance += _tripDistance;
+    return ref.updateData({'totalDistance': totalDistance});
+  }
+
   void stopTrip() async {
     _endTime = DateTime.now();
     _isTripping = false;
-    print(_tripCoordinates);
-    print(_tripDistance);
-    print(_topSpeed);
     try {
       var docRef =
           _db.collection('users').document(uid).collection('trips').document();
@@ -179,6 +187,7 @@ class _CaptureTripState extends State<CaptureTrip> {
         'topSpeed': _topSpeed,
         'tripCoordinates': _tripCoordinates,
       });
+      await updateTotalDistance();
       print('Data Added');
     } catch (e) {
       print(e);

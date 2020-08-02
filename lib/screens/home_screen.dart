@@ -255,7 +255,7 @@ class UserDetails extends StatelessWidget {
 }
 
 class Slidetil extends StatelessWidget {
-  String imagePath, title, desc;
+  final String imagePath, title, desc;
 
   Slidetil({this.imagePath, this.title, this.desc});
 

@@ -1,17 +1,17 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:latlong/latlong.dart' as LatLngCal;
-import 'package:provider/provider.dart';
 
 class CaptureTrip extends StatefulWidget {
   static String route = 'CaptureTrip';
+  final String userID;
+  CaptureTrip({this.userID});
   @override
-  _CaptureTripState createState() => _CaptureTripState();
+  _CaptureTripState createState() => _CaptureTripState(uid: userID);
 }
 
 class _CaptureTripState extends State<CaptureTrip> {
@@ -45,11 +45,7 @@ class _CaptureTripState extends State<CaptureTrip> {
     zoom: 14.4746,
   );
 
-  // static final CameraPosition _kLake = CameraPosition(
-  //     bearing: 192.8334901395799,
-  //     target: LatLng(37.43296265331129, -122.08832357078792),
-  //     tilt: 59.440717697143555,
-  //     zoom: 19.151926040649414);
+  _CaptureTripState({this.uid});
 
   @override
   void initState() {
@@ -207,8 +203,6 @@ class _CaptureTripState extends State<CaptureTrip> {
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<FirebaseUser>(context);
-    uid = user.uid;
     return Scaffold(
       body: SafeArea(
         child: Stack(

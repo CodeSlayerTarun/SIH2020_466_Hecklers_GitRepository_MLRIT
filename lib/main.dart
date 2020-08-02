@@ -4,6 +4,7 @@ import 'package:memories/screens/capture_trip_screen.dart';
 import 'package:memories/screens/home_screen.dart';
 import 'package:memories/screens/view_trips_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:memories/screens/navbar.dart';
 
 void main() {
   runApp(Memories());
@@ -25,10 +26,10 @@ class _MemoriesState extends State<Memories> {
       child: MaterialApp(
         routes: {
           CaptureTrip.route: (context) => CaptureTrip(),
-          HomeScreen.route: (context) => HomeScreen(),
+          NavBarScreen.route: (context) => NavBarScreen(),
           ViewTrip.route: (context) => ViewTrip(),
         },
-        initialRoute: HomeScreen.route,
+        initialRoute: NavBarScreen.route,
       ),
     );
   }

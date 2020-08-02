@@ -41,6 +41,8 @@ class MyCustomFormState extends State<MyCustomForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
+  var splitList = [];
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -71,7 +73,14 @@ class MyCustomFormState extends State<MyCustomForm> {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: RaisedButton(
               onPressed: () {
-                List<String> places = tagplaces.split("  ");
+                List<String> places = tagplaces.split('');
+
+                List<String> indexList = [];
+                for (int i = 0; i < splitList.length; i++) {
+                  for (int y = 1; y < splitList[i].length + 1; y++) {
+                    indexList.add(splitList[i].substring(0, y).toLowerCase());
+                  }
+                }
 
                 print(itinearyTitle);
                 print(itineary);

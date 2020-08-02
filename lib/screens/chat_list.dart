@@ -90,7 +90,7 @@ class _ChatListState extends State<ChatList> {
                             itemBuilder: (BuildContext ctxt, int index) {
                               var _clanData = clans[index].data;
                               return Container(
-                                height: 60.0,
+                                height: 80.0,
                                 child: Card(
                                   child: Row(
                                     mainAxisAlignment:
@@ -98,13 +98,19 @@ class _ChatListState extends State<ChatList> {
                                     children: <Widget>[
                                       Column(
                                         children: <Widget>[
-                                          Text(
-                                            _clanData['clanName'],
-                                            style: kCardTitle,
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              _clanData['clanName'],
+                                              style: kCardTitle,
+                                            ),
                                           ),
-                                          Text(
-                                            _clanData['clanID'],
-                                            style: kCardSubtitle,
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              _clanData['clanID'],
+                                              style: kCardSubtitle,
+                                            ),
                                           ),
                                         ],
                                       ),

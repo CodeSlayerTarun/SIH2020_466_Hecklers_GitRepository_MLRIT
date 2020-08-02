@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:memories/components/map_component.dart';
+import 'package:memories/screens/show_trip_screen.dart';
 
 class TripCard extends StatefulWidget {
   final tripDetails;
-  TripCard({this.tripDetails});
+  final userID;
+  TripCard({this.tripDetails, this.userID});
   @override
-  _TripCardState createState() => _TripCardState();
+  _TripCardState createState() =>
+      _TripCardState(userid: userID, tripData: tripDetails);
 }
 
 class _TripCardState extends State<TripCard> {
   var tripData;
-  @override
-  void initState() {
-    super.initState();
-    tripData = widget.tripDetails;
-  }
+  var userid;
+  _TripCardState({this.tripData, this.userid});
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +48,16 @@ class _TripCardState extends State<TripCard> {
                           ),
                         ),
                         IconButton(
-                            icon: Icon(Icons.open_in_new),
-                            onPressed: () {
-                              print('Button Pressed');
-                            })
+                          icon: Icon(Icons.open_in_new),
+                          onPressed: () {
+                            print('Button Pressed');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ShowTrip(userid, tripData['tripID'])));
+                          },
+                        ),
                       ],
                     ),
                   ),

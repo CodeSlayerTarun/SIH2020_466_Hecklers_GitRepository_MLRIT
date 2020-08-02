@@ -53,9 +53,7 @@ class _ViewTripState extends State<ViewTrip> {
                           List<TripCard> tripsDetails = [];
                           for (var trip in trips) {
                             tripsDetails.add(
-                              TripCard(
-                                tripDetails: trip.data,
-                              ),
+                              TripCard(tripDetails: trip.data, userID: userid),
                               // Text(trip.data.toString()),
                             );
                           }

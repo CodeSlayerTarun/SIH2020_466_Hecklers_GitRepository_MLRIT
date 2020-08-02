@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:memories/screens/clan_info.dart';
+import 'package:memories/screens/show_trip_screen.dart';
 import 'package:memories/utils/constants.dart';
 
 class ClanChat extends StatefulWidget {
@@ -25,6 +26,42 @@ class _ClanChatState extends State<ClanChat> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Widget checkType(messagesData) {
+    if (messagesData['message'][0] == '#') {
+      var tripID = messagesData['message']..substring(1);
+      return Card(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                '${messagesData['senderName']} shared Trip',
+                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w600),
+              ),
+              IconButton(
+                icon: Icon(Icons.open_in_new),
+                onPressed: () {
+                  print('Button Pressed');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ShowTrip(messagesData['senderID'], tripID)));
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Text(
+        messagesData['message'],
+        style: TextStyle(fontSize: 15.0),
+      );
+    }
   }
 
   @override
@@ -116,12 +153,8 @@ class _ClanChatState extends State<ClanChat> {
                                           ? Colors.pink[50]
                                           : Colors.amber[50],
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          messagesData['message'],
-                                          style: TextStyle(fontSize: 15.0),
-                                        ),
-                                      )),
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: checkType(messagesData))),
                                 ],
                               ),
                             );

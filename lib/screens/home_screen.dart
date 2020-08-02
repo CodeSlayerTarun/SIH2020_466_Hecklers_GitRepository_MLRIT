@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:memories/screens/capture_trip_screen.dart';
+import 'package:memories/screens/chat_list.dart';
 import 'package:memories/screens/view_trips_screen.dart';
 import 'package:memories/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -71,11 +72,13 @@ class UserDetails extends StatelessWidget {
           RaisedButton(
             onPressed: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ViewTrip(
-                            uid: userDetails['uid'],
-                          )));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ViewTrip(
+                    uid: userDetails['uid'],
+                  ),
+                ),
+              );
             },
             child: Text('ViewTrip'),
           ),
@@ -85,6 +88,20 @@ class UserDetails extends StatelessWidget {
                   arguments: {'uid': userDetails['uid']});
             },
             child: Text('CaptureTrip'),
+          ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatList(
+                    userID: userDetails['uid'],
+                    user: userDetails['displayName'],
+                  ),
+                ),
+              );
+            },
+            child: Text('Clans'),
           ),
           RaisedButton(
             onPressed: () {

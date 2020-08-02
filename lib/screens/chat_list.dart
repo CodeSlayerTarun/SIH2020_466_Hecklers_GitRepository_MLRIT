@@ -5,15 +5,20 @@ import 'package:memories/utils/constants.dart';
 
 class ChatList extends StatefulWidget {
   static String route = 'ChatList';
+  final String userID;
+  final String user;
+  ChatList({this.userID, this.user});
   @override
-  _ChatListState createState() => _ChatListState();
+  _ChatListState createState() => _ChatListState(id: userID, userName: user);
 }
 
 class _ChatListState extends State<ChatList> {
-  String id = 'XMMGghadl3c7rlPfqZqqAULxEIG3';
-  String userName = 'Tushar Mistry';
+  String id;
+  String userName;
   Firestore _db = Firestore.instance;
   String _newClanName;
+
+  _ChatListState({this.id, this.userName});
 
   void createClan() {
     var docRef = _db.collection('clans').document();

@@ -30,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var userSnapshot = snapshot.data;
-                        print(userSnapshot.data);
                         if (userSnapshot.data != null) {
                           return UserDetails(
                             userDetails: userSnapshot.data,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:memories/screens/clan_info.dart';
 import 'package:memories/utils/constants.dart';
 
 class ClanChat extends StatefulWidget {
@@ -40,19 +41,39 @@ class _ClanChatState extends State<ClanChat> {
                   bottom: BorderSide(width: 2.0, color: Colors.grey),
                 ),
               ),
-              child: Center(
-                child: Hero(
-                  tag: 'ClanName',
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        clanInfo['clanName'],
-                        style: kCardTitle,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Center(
+                    child: Hero(
+                      tag: 'ClanName',
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            clanInfo['clanName'],
+                            style: kCardTitle,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: IconButton(
+                        icon: Icon(Icons.info),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ClanInfo(
+                                        currentUserID: currentUserID,
+                                        currentUserName: currentUserName,
+                                        clanInfo: clanInfo,
+                                      )));
+                        }),
+                  )
+                ],
               ),
             ),
             Expanded(

@@ -17,6 +17,7 @@ class _ChatListState extends State<ChatList> {
   String userName;
   Firestore _db = Firestore.instance;
   String _newClanName;
+  var textController = TextEditingController();
 
   _ChatListState({this.id, this.userName});
 
@@ -25,7 +26,7 @@ class _ChatListState extends State<ChatList> {
     docRef.setData({
       'clanID': docRef.documentID,
       'clanName': _newClanName,
-      'clanAdmin': id,
+      'clanAdmin': {'adminID': id, 'adminName': userName},
       'members': [
         {
           'uid': id,
@@ -50,6 +51,7 @@ class _ChatListState extends State<ChatList> {
                   SizedBox(
                     width: 100.0,
                     child: TextField(
+                      controller: textController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Clan Name',
@@ -61,8 +63,10 @@ class _ChatListState extends State<ChatList> {
                   ),
                   RaisedButton(
                     onPressed: () {
-                      createClan();
-                      _newClanName = '';
+                      if (_newClanName.length > 0) {
+                        createClan();
+                        textController.clear();
+                      }
                     },
                     child: Text('Create New Clan'),
                   ),

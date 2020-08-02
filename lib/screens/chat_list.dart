@@ -112,8 +112,9 @@ class _ChatListState extends State<ChatList> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ClanChat(
-                                                          clanData: _clanData,
-                                                        )));
+                                                            clanData: _clanData,
+                                                            userID: id,
+                                                            user: userName)));
                                           })
                                     ],
                                   ),

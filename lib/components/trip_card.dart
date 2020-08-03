@@ -54,8 +54,9 @@ class _TripCardState extends State<TripCard> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        ShowTrip(userid, tripData['tripID'])));
+                                    builder: (context) => ShowTrip(
+                                        uid: userid,
+                                        tripID: tripData['tripID'])));
                           },
                         ),
                       ],

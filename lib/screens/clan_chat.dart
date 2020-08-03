@@ -30,11 +30,14 @@ class _ClanChatState extends State<ClanChat> {
 
   Widget checkType(messagesData) {
     if (messagesData['message'][0] == '#') {
-      var tripID = messagesData['message']..substring(1);
+      var tripID = messagesData['message'].substring(1);
+      print(tripID);
+      print(messagesData['senderID']);
       return Card(
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
@@ -48,8 +51,10 @@ class _ClanChatState extends State<ClanChat> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              ShowTrip(messagesData['senderID'], tripID)));
+                          builder: (context) => ShowTrip(
+                                tripID: tripID,
+                                uid: messagesData['senderID'],
+                              )));
                 },
               ),
             ],
@@ -98,7 +103,7 @@ class _ClanChatState extends State<ClanChat> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
-                        icon: Icon(Icons.info),
+                        icon: Icon(Icons.info_outline),
                         onPressed: () {
                           Navigator.push(
                               context,

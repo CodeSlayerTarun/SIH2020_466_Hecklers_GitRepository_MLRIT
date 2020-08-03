@@ -84,7 +84,8 @@ class _ClanInfoState extends State<ClanInfo> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Expanded(
+                            Container(
+                              height: 200,
                               child: Center(
                                 child: Image(
                                   image:
@@ -94,7 +95,10 @@ class _ClanInfoState extends State<ClanInfo> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Text(clanLiveInfo['clanName']),
+                              child: Text(
+                                clanLiveInfo['clanName'],
+                                style: TextStyle(fontSize: 25.0),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10.0),

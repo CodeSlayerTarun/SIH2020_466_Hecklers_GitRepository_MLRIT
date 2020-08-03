@@ -6,7 +6,7 @@ import 'package:memories/components/map_component.dart';
 class ShowTrip extends StatefulWidget {
   final uid;
   final tripID;
-  ShowTrip(this.uid, this.tripID);
+  ShowTrip({this.uid, this.tripID});
   @override
   _ShowTripState createState() => _ShowTripState(tripID: tripID, userID: uid);
 }

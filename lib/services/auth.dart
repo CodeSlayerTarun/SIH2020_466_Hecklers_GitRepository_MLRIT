@@ -40,10 +40,16 @@ class AuthService {
     });
     if (userDetails != null) {
       var totalDistance;
+      var dest;
       if (userDetails['totalDistance'] == null) {
         totalDistance = 0.0;
       } else {
         totalDistance = userDetails['totalDistance'];
+      }
+      if (userDetails['destination'] == null) {
+        dest = GeoPoint(0, 0);
+      } else {
+        dest = userDetails['destination'];
       }
       return ref.setData({
         'uid': userDetails['uid'],
@@ -51,6 +57,7 @@ class AuthService {
         'photoURL': userDetails['photoURL'],
         'displayName': userDetails['displayName'],
         'totalDistance': totalDistance,
+        'destination': dest,
       }, merge: true);
     } else {
       print('Setting Default data');
@@ -59,7 +66,8 @@ class AuthService {
         'email': user.email,
         'photoURL': user.photoUrl,
         'displayName': user.displayName,
-        'totalDistance': 0.0
+        'totalDistance': 0.0,
+        'destination': GeoPoint(0, 0),
       }, merge: true);
     }
   }

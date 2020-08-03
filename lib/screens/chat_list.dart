@@ -43,6 +43,7 @@ class _ChatListState extends State<ChatList> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Image.asset('assets/images/group.gif'),
             Expanded(
               flex: 2,
               child: Row(

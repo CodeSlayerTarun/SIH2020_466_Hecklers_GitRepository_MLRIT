@@ -7,6 +7,7 @@ import 'package:memories/screens/chat_list.dart';
 import 'package:memories/screens/intro_screen.dart';
 // import 'package:memories/screens/intro_slider.dart';
 import 'package:memories/screens/profile.dart';
+import 'package:memories/screens/rank_screen.dart';
 import 'package:memories/screens/search_page.dart';
 import 'package:memories/screens/view_trips_screen.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,7 @@ class _DashboardState extends State<Dashboard> {
                       var userDetails = userSnapshot.data;
                       pageList = [
                         Profile(),
+                        Rankings(),
                         ChatList(
                           userID: userDetails['uid'],
                           user: userDetails['displayName'],
@@ -79,6 +81,12 @@ class _DashboardState extends State<Dashboard> {
                         size: 22.0,
                       ),
                       title: Text('Profile')),
+                  BottomNavigationBarItem(
+                      icon: FaIcon(
+                        FontAwesomeIcons.award,
+                        size: 26.0,
+                      ),
+                      title: Text('Clans')),
                   BottomNavigationBarItem(
                       icon: FaIcon(FontAwesomeIcons.users),
                       title: Text('Clans')),

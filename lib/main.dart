@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:memories/screens/capture_trip_screen.dart';
 import 'package:memories/screens/dashboard.dart';
 import 'package:memories/screens/intro_screen.dart';
+import 'package:memories/screens/rank_screen.dart';
 import 'package:memories/screens/search_page.dart';
 import 'package:memories/screens/view_trips_screen.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class _MemoriesState extends State<Memories> {
           Dashboard.route: (context) => Dashboard(),
           IntroScreen.route: (context) => IntroScreen(),
           SearchPage.route: (context) => SearchPage(),
+          Rankings.route: (context) => Rankings(),
         },
         initialRoute: Dashboard.route,
       ),

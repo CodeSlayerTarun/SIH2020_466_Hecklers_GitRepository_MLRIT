@@ -103,17 +103,27 @@ class _ProfileState extends State<Profile> {
                                 height: 20.0,
                               ),
                               RawMaterialButton(
+                                elevation: 3.0,
+                                fillColor: Colors.white,
                                 onPressed: () {
                                   authService.signOut();
                                 },
-                                elevation: 3.0,
-                                fillColor: Colors.red,
-                                child: FaIcon(
-                                  FontAwesomeIcons.powerOff,
-                                  size: 25.0,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text('Sign Out'),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    FaIcon(
+                                      FontAwesomeIcons.powerOff,
+                                      size: 25.0,
+                                    ),
+                                  ],
                                 ),
                                 padding: EdgeInsets.all(15.0),
-                                shape: CircleBorder(),
                               )
                             ],
                           ),

@@ -50,7 +50,7 @@ class _ViewTripState extends State<ViewTrip> {
                       if (snapshot.hasData) {
                         var trips = snapshot.data.documents;
                         if (trips.length > 0) {
-                          List<TripCard> tripsDetails = [];
+                          List<Widget> tripsDetails = [];
                           for (var trip in trips) {
                             tripsDetails.add(
                               TripCard(tripDetails: trip.data, userID: userid),

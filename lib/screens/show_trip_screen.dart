@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:memories/components/map_component.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 // import 'package:firebase_storage/firebase_storage.dart';
 
@@ -16,19 +16,19 @@ class ShowTrip extends StatefulWidget {
 
 class _ShowTripState extends State<ShowTrip> {
   File _image;
-  
+
   String userID;
   var tripID;
   Firestore _db = Firestore.instance;
   _ShowTripState({this.tripID, this.userID});
 
-  Future _getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-      print('_image: $_image');
-    });
-  }
+  // Future _getImage() async {
+  //   var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+  //   setState(() {
+  //     _image = image;
+  //     print('_image: $_image');
+  //   });
+  // }
 
   // Future _getImage(bool isCamera) async{
   //   if(isCamera){
@@ -175,20 +175,6 @@ class _ShowTripState extends State<ShowTrip> {
                                   SizedBox(
                                     height: 30.0,
                                   ),
-                                  Center(
-                                    child: Column(
-                                      children: <Widget>[
-                                        MaterialButton(
-                                          height: 20,
-                                          minWidth: 20,
-                                          color: Colors.pink[100],
-                                          child: Icon(Icons.add_a_photo),
-                                          onPressed: _getImage,
-                                          // _getImage(true),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                   if (_image != null) ...[
                                     Image.file(_image,
                                         height: 300.0, width: 300.0),
@@ -198,7 +184,7 @@ class _ShowTripState extends State<ShowTrip> {
                                         // uploadImage();
                                       },
                                     ),
-                                    // _uploaded = false ? 
+                                    // _uploaded = false ?
                                   ]
                                 ],
                               ),

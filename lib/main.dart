@@ -26,6 +26,7 @@ class _MemoriesState extends State<Memories> {
             value: FirebaseAuth.instance.onAuthStateChanged),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme:
             ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
         routes: {

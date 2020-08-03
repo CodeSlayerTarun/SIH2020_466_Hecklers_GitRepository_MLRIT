@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:memories/screens/clan_chat.dart';
-import 'package:memories/utils/constants.dart';
 
 class ChatList extends StatefulWidget {
   static String route = 'ChatList';
@@ -17,6 +16,7 @@ class _ChatListState extends State<ChatList> {
   String userName;
   Firestore _db = Firestore.instance;
   String _newClanName;
+  var textController = TextEditingController();
 
   _ChatListState({this.id, this.userName});
 
@@ -25,7 +25,7 @@ class _ChatListState extends State<ChatList> {
     docRef.setData({
       'clanID': docRef.documentID,
       'clanName': _newClanName,
-      'clanAdmin': id,
+      'clanAdmin': {'adminID': id, 'adminName': userName},
       'members': [
         {
           'uid': id,
@@ -43,29 +43,46 @@ class _ChatListState extends State<ChatList> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Image.asset('assets/images/group.gif'),
             Expanded(
               flex: 2,
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    width: 100.0,
+                    width: 300.0,
                     child: TextField(
+                      controller: textController,
+                      autofocus: false,
+                      style: TextStyle(fontSize: 22.0, color: Colors.black87),
                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Clan Name',
-                      ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'New Clan Name',
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 8.0, top: 8.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                            borderRadius: BorderRadius.circular(25.7),
+                          )),
                       onChanged: (value) {
                         _newClanName = value;
                       },
                     ),
                   ),
-                  RaisedButton(
-                    onPressed: () {
-                      createClan();
-                      _newClanName = '';
-                    },
-                    child: Text('Create New Clan'),
-                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: IconButton(
+                      iconSize: 40.0,
+                      icon: Icon(Icons.add_circle_outline),
+                      onPressed: () {
+                        if (_newClanName.length > 0) {
+                          createClan();
+                          textController.clear();
+                        }
+                      },
+                    ),
+                  )
                 ],
               ),
             ),
@@ -85,38 +102,58 @@ class _ChatListState extends State<ChatList> {
                             itemCount: clans.length,
                             itemBuilder: (BuildContext ctxt, int index) {
                               var _clanData = clans[index].data;
-                              return Container(
-                                height: 60.0,
-                                child: Card(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Column(
+                              return Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Container(
+                                  height: 80.0,
+                                  child: Card(
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
-                                          Text(
-                                            _clanData['clanName'],
-                                            style: kCardTitle,
+                                          Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  _clanData['clanName'],
+                                                  style:
+                                                      TextStyle(fontSize: 25.0),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20.0),
+                                                child: Text(
+                                                  _clanData['clanID'],
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                            _clanData['clanID'],
-                                            style: kCardSubtitle,
-                                          ),
+                                          IconButton(
+                                              icon: Icon(Icons.arrow_forward),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ClanChat(
+                                                                clanData:
+                                                                    _clanData,
+                                                                userID: id,
+                                                                user:
+                                                                    userName)));
+                                              })
                                         ],
                                       ),
-                                      IconButton(
-                                          icon: Icon(Icons.arrow_forward),
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ClanChat(
-                                                            clanData: _clanData,
-                                                            userID: id,
-                                                            user: userName)));
-                                          })
-                                    ],
+                                    ),
                                   ),
                                 ),
                               );

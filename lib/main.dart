@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:memories/screens/capture_trip_screen.dart';
-import 'package:memories/screens/home_screen.dart';
+import 'package:memories/screens/dashboard.dart';
+import 'package:memories/screens/intro_screen.dart';
+import 'package:memories/screens/rank_screen.dart';
+import 'package:memories/screens/search_page.dart';
 import 'package:memories/screens/view_trips_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -23,12 +26,17 @@ class _MemoriesState extends State<Memories> {
             value: FirebaseAuth.instance.onAuthStateChanged),
       ],
       child: MaterialApp(
+        theme:
+            ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.white),
         routes: {
           CaptureTrip.route: (context) => CaptureTrip(),
-          HomeScreen.route: (context) => HomeScreen(),
           ViewTrip.route: (context) => ViewTrip(),
+          Dashboard.route: (context) => Dashboard(),
+          IntroScreen.route: (context) => IntroScreen(),
+          SearchPage.route: (context) => SearchPage(),
+          Rankings.route: (context) => Rankings(),
         },
-        initialRoute: HomeScreen.route,
+        initialRoute: Dashboard.route,
       ),
     );
   }

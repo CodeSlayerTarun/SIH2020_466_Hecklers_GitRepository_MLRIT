@@ -27,18 +27,12 @@ class _ViewTripState extends State<ViewTrip> {
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text(
-                      'Trips',
-                      style: TextStyle(
-                        fontSize: 60.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Image.asset('assets/images/way.png'),
-                  ],
+                child: Text(
+                  'Trips.',
+                  style: TextStyle(
+                    fontSize: 60.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -56,12 +50,10 @@ class _ViewTripState extends State<ViewTrip> {
                       if (snapshot.hasData) {
                         var trips = snapshot.data.documents;
                         if (trips.length > 0) {
-                          List<TripCard> tripsDetails = [];
+                          List<Widget> tripsDetails = [];
                           for (var trip in trips) {
                             tripsDetails.add(
-                              TripCard(
-                                tripDetails: trip.data,
-                              ),
+                              TripCard(tripDetails: trip.data, userID: userid),
                               // Text(trip.data.toString()),
                             );
                           }

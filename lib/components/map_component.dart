@@ -54,6 +54,8 @@ class _ShowMapState extends State<ShowMap> {
         points: polylineCoords,
         color: Colors.orangeAccent,
         width: 5,
+        startCap: Cap.roundCap,
+        endCap: Cap.buttCap,
       );
     });
   }

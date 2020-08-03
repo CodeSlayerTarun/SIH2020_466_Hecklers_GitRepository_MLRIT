@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:latlong/latlong.dart' as LatLngCal;
 import 'package:provider/provider.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class CaptureTrip extends StatefulWidget {
   static String route = 'CaptureTrip';
@@ -44,6 +45,8 @@ class _CaptureTripState extends State<CaptureTrip> {
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
+
+  PolylinePoints direction = PolylinePoints();
 
   // static final CameraPosition _kLake = CameraPosition(
   //     bearing: 192.8334901395799,
@@ -135,6 +138,18 @@ class _CaptureTripState extends State<CaptureTrip> {
     }
   }
 
+  // void updatePolyLine(LatLng dest) async {
+  //   LocationData currentLocation = await _location.getLocation();
+  //   var origin =
+  //       PointLatLng(currentLocation.latitude, currentLocation.longitude);
+  //   var destination = PointLatLng(dest.latitude, dest.longitude);
+  //   PolylineResult result = await direction.getRouteBetweenCoordinates(
+  //       'API', origin, destination,
+  //       travelMode: TravelMode.driving);
+  //   print('Google Points');
+  //   print(result.points);
+  // }
+
   void updateMarkerAndCirle(
       {LocationData newLocationData, Uint8List markerImgData}) {
     LatLng latlng = LatLng(newLocationData.latitude, newLocationData.longitude);
@@ -221,10 +236,13 @@ class _CaptureTripState extends State<CaptureTrip> {
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
+              // onTap: (argument) {
+              //   updatePolyLine(argument);
+              // },
             ),
             Positioned(
               bottom: 20,
-              left: 60,
+              left: 50,
               child: Column(
                 children: <Widget>[
                   (!_isTripping)

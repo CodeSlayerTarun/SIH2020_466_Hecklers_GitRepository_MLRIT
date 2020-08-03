@@ -138,17 +138,17 @@ class _CaptureTripState extends State<CaptureTrip> {
     }
   }
 
-  void updatePolyLine(LatLng dest) async {
-    LocationData currentLocation = await _location.getLocation();
-    var origin =
-        PointLatLng(currentLocation.latitude, currentLocation.longitude);
-    var destination = PointLatLng(dest.latitude, dest.longitude);
-    PolylineResult result = await direction.getRouteBetweenCoordinates(
-        'AIzaSyBefQfu1BTBfBUG2pf5bysyjJlWkGe23NE', origin, destination,
-        travelMode: TravelMode.driving);
-    print('Google Points');
-    print(result.points);
-  }
+  // void updatePolyLine(LatLng dest) async {
+  //   LocationData currentLocation = await _location.getLocation();
+  //   var origin =
+  //       PointLatLng(currentLocation.latitude, currentLocation.longitude);
+  //   var destination = PointLatLng(dest.latitude, dest.longitude);
+  //   PolylineResult result = await direction.getRouteBetweenCoordinates(
+  //       'API', origin, destination,
+  //       travelMode: TravelMode.driving);
+  //   print('Google Points');
+  //   print(result.points);
+  // }
 
   void updateMarkerAndCirle(
       {LocationData newLocationData, Uint8List markerImgData}) {
@@ -236,9 +236,9 @@ class _CaptureTripState extends State<CaptureTrip> {
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
-              onTap: (argument) {
-                updatePolyLine(argument);
-              },
+              // onTap: (argument) {
+              //   updatePolyLine(argument);
+              // },
             ),
             Positioned(
               bottom: 20,

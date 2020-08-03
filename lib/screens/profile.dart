@@ -83,6 +83,15 @@ class _ProfileState extends State<Profile> {
                                                     new ClipboardData(
                                                         text: userDetails[
                                                             'uid']));
+                                                final snackBar = SnackBar(
+                                                  content:
+                                                      Text('UserID ID copied'),
+                                                );
+
+                                                // Find the Scaffold in the widget tree and use
+                                                // it to show a SnackBar.
+                                                Scaffold.of(context)
+                                                    .showSnackBar(snackBar);
                                               })
                                         ],
                                       ),

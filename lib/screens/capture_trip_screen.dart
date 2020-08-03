@@ -2,12 +2,14 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:latlong/latlong.dart' as LatLngCal;
 import 'package:provider/provider.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 
 class CaptureTrip extends StatefulWidget {
   static String route = 'CaptureTrip';
@@ -20,6 +22,7 @@ class _CaptureTripState extends State<CaptureTrip> {
   Location _location = Location();
   StreamSubscription _locationSubscription;
   final Firestore _db = Firestore.instance;
+  Geoflutterfire geo = Geoflutterfire();
 
   // Using Latlong library
   final LatLngCal.Distance _distance = new LatLngCal.Distance();
@@ -39,7 +42,11 @@ class _CaptureTripState extends State<CaptureTrip> {
   PermissionStatus _permissionGranted;
 
   Marker marker;
+  final Map<String, Marker> _markers = {};
   Circle circle;
+
+  bool isBroadcasting = false;
+  StreamSubscription<List<DocumentSnapshot>> broadcastStream;
 
   static final CameraPosition _initialPosition = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -164,6 +171,7 @@ class _CaptureTripState extends State<CaptureTrip> {
         flat: true,
         icon: BitmapDescriptor.fromBytes(markerImgData),
       );
+      _markers['user'] = marker;
       circle = Circle(
         circleId: CircleId('userAccuracy'),
         radius: newLocationData.accuracy,
@@ -212,10 +220,81 @@ class _CaptureTripState extends State<CaptureTrip> {
     _topSpeed = 0.0;
   }
 
+  loadBroadcastMarkers() async {
+    LocationData currentPosition = await _location.getLocation();
+    var ref = _db.collection('needHelp');
+    GeoFirePoint center =
+        GeoFirePoint(currentPosition.latitude, currentPosition.longitude);
+    broadcastStream = geo
+        .collection(collectionRef: ref)
+        .within(
+            center: center, radius: 50.0, field: 'position', strictMode: true)
+        .listen(
+      (event) {
+        if (event.length > 0) {
+          updateHelpMarkers(documentList: event);
+        } else {
+          setState(() {
+            _markers.removeWhere((key, value) => key != 'user');
+          });
+        }
+      },
+    );
+  }
+
+  void updateHelpMarkers({List<DocumentSnapshot> documentList}) async {
+    setState(() {
+      _markers.removeWhere((key, value) => key != 'user');
+    });
+    documentList.forEach((DocumentSnapshot document) {
+      if (document.data.length > 0) {
+        GeoPoint pos = document.data['position']['geopoint'];
+        var marker = Marker(
+          markerId: MarkerId(document.data['uid']),
+          position: LatLng(pos.latitude, pos.longitude),
+          icon: BitmapDescriptor.defaultMarker,
+          infoWindow:
+              InfoWindow(title: document.data['name'], snippet: 'Need Help'),
+          zIndex: 5,
+        );
+        setState(() {
+          _markers[document.data['uid']] = marker;
+        });
+      }
+    });
+  }
+
+  void broadcastLocation() async {
+    isBroadcasting = true;
+    print('Broadcasting User location');
+    LocationData currentPosition = await _location.getLocation();
+    GeoFirePoint myLocation = geo.point(
+        latitude: currentPosition.latitude,
+        longitude: currentPosition.longitude);
+    var userDetails;
+    DocumentReference ref = _db.collection('users').document(uid);
+    await ref.get().then((value) {
+      userDetails = value.data;
+    });
+    _db.collection('needHelp').document(uid).setData({
+      'uid': uid,
+      'name': userDetails['displayName'],
+      'position': myLocation.data
+    }, merge: true);
+  }
+
+  void stopBroadcasting() async {
+    isBroadcasting = false;
+    await _db.collection('needHelp').document(uid).delete();
+  }
+
   @override
   void dispose() {
     if (_locationSubscription != null) {
       _locationSubscription.cancel();
+    }
+    if (broadcastStream != null) {
+      broadcastStream.cancel();
     }
     super.dispose();
   }
@@ -231,10 +310,11 @@ class _CaptureTripState extends State<CaptureTrip> {
             GoogleMap(
               mapType: MapType.normal,
               initialCameraPosition: _initialPosition,
-              markers: Set.of((marker != null) ? [marker] : []),
+              markers: _markers.values.toSet(),
               circles: Set.of((circle != null) ? [circle] : []),
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
+                loadBroadcastMarkers();
               },
               // onTap: (argument) {
               //   updatePolyLine(argument);
@@ -294,6 +374,55 @@ class _CaptureTripState extends State<CaptureTrip> {
                         ),
                 ],
               ),
+            ),
+            Positioned(
+              top: 10.0,
+              right: 10.0,
+              child: (!isBroadcasting)
+                  ? RaisedButton(
+                      color: Colors.red,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FaIcon(
+                            FontAwesomeIcons.exclamationTriangle,
+                            size: 15.0,
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text('Help Me'),
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.red)),
+                      onPressed: () {
+                        broadcastLocation();
+                      })
+                  : RaisedButton(
+                      color: Colors.yellow,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FaIcon(
+                            FontAwesomeIcons.exclamationCircle,
+                            size: 15.0,
+                          ),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text('Stop Broadcast'),
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.yellow)),
+                      onPressed: () {
+                        stopBroadcasting();
+                      }),
             ),
           ],
         ),

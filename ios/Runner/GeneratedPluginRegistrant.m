@@ -22,6 +22,12 @@
 @import firebase_core;
 #endif
 
+#if __has_include(<geoflutterfire/GeoflutterfirePlugin.h>)
+#import <geoflutterfire/GeoflutterfirePlugin.h>
+#else
+@import geoflutterfire;
+#endif
+
 #if __has_include(<google_maps_flutter/FLTGoogleMapsPlugin.h>)
 #import <google_maps_flutter/FLTGoogleMapsPlugin.h>
 #else
@@ -52,6 +58,7 @@
   [FLTCloudFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTCloudFirestorePlugin"]];
   [FLTFirebaseAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseAuthPlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
+  [GeoflutterfirePlugin registerWithRegistrar:[registry registrarForPlugin:@"GeoflutterfirePlugin"]];
   [FLTGoogleMapsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleMapsPlugin"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
   [LocationPlugin registerWithRegistrar:[registry registrarForPlugin:@"LocationPlugin"]];

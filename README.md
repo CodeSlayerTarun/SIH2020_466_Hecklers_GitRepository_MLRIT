@@ -1,6 +1,10 @@
 # memories
 
+<<<<<<< HEAD
 Platform for Travellers to capture, store, share trips and make friends.
+=======
+A platform to create, store and share your trips and make friends.
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
 
 ## Getting Started
 

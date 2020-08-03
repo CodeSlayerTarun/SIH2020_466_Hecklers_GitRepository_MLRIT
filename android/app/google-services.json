@@ -15,6 +15,17 @@
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
+=======
+          "client_id": "18465913900-fnrmr0gfip6n31dc455le5tfs5ptq21m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hecklers.memories",
+            "certificate_hash": "a0c3a7390fab5c86daa1ab5e33dd8c1fbe5e916c"
+          }
+        },
+        {
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
           "client_id": "18465913900-lgijvfon2u53an44nrgq0v35393datk7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -65,6 +76,7 @@
           ]
         }
       }
+<<<<<<< HEAD
     },
     {
       "client_info": {
@@ -101,6 +113,8 @@
           ]
         }
       }
+=======
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
     }
   ],
   "configuration_version": "1"

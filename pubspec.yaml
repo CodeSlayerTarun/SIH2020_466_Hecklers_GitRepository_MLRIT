@@ -1,9 +1,17 @@
 name: memories
+<<<<<<< HEAD
 description: Platform for Travellers to capture, store, share trips and make friends.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
+=======
+description: A platform to create, store and share your trips and make friends.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -30,6 +38,11 @@ dependencies:
   google_maps_flutter: ^0.5.28+1
   location: ^3.0.2
   latlong: ^0.6.1
+<<<<<<< HEAD
+=======
+  shared_preferences: ^0.5.8
+  provider: ^4.3.1
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -44,10 +57,15 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+<<<<<<< HEAD
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/
@@ -55,6 +73,20 @@ flutter:
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+=======
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

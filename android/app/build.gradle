@@ -22,12 +22,23 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+<<<<<<< HEAD
+=======
+apply plugin: 'kotlin-android'
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
 apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 28
 
+<<<<<<< HEAD
+=======
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07
     lintOptions {
         disable 'InvalidPackage'
     }
@@ -56,6 +67,13 @@ flutter {
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation 'com.android.support:multidex:1.0.3' 
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
 }
+=======
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+}
+>>>>>>> 0dc68d5b727345e6ba19e10f93169059cf7f2c07

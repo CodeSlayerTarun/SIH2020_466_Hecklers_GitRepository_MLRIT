@@ -85,7 +85,7 @@ class _ProfileState extends State<Profile> {
                                                             'uid']));
                                                 final snackBar = SnackBar(
                                                   content:
-                                                      Text('UserID ID copied'),
+                                                      Text('UserID copied'),
                                                 );
 
                                                 // Find the Scaffold in the widget tree and use
@@ -117,6 +117,9 @@ class _ProfileState extends State<Profile> {
                                 onPressed: () {
                                   authService.signOut();
                                 },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -128,7 +131,8 @@ class _ProfileState extends State<Profile> {
                                     ),
                                     FaIcon(
                                       FontAwesomeIcons.powerOff,
-                                      size: 25.0,
+                                      size: 20.0,
+                                      color: Colors.red[900],
                                     ),
                                   ],
                                 ),
@@ -143,7 +147,20 @@ class _ProfileState extends State<Profile> {
                     return Text('No such user found');
                   }
                 } else {
-                  return Text('No such user found');
+                  return Center(
+                    child: Column(
+                      children: <Widget>[
+                        Image(image: AssetImage('assets/images/car.gif')),
+                        SizedBox(
+                          height: 60.0,
+                        ),
+                        Text(
+                          'Loading',
+                          style: TextStyle(fontSize: 30.0),
+                        )
+                      ],
+                    ),
+                  );
                 }
               })),
     );

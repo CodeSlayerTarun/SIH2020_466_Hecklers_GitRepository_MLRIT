@@ -19,9 +19,7 @@ class _ViewTripState extends State<ViewTrip> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: ListView(
           children: <Widget>[
             Expanded(
               flex: 2,
@@ -57,7 +55,7 @@ class _ViewTripState extends State<ViewTrip> {
                               // Text(trip.data.toString()),
                             );
                           }
-                          return ListView(
+                          return Column(
                             children: tripsDetails,
                           );
                         } else {

@@ -39,9 +39,7 @@ class _ChatListState extends State<ChatList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: ListView(
           children: <Widget>[
             Image.asset('assets/images/group.gif'),
             Expanded(
@@ -87,7 +85,6 @@ class _ChatListState extends State<ChatList> {
               ),
             ),
             Expanded(
-              flex: 5,
               child: StreamBuilder<QuerySnapshot>(
                   stream: _db.collection('clans').where('members',
                       arrayContains: {
@@ -97,69 +94,72 @@ class _ChatListState extends State<ChatList> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       var clans = snapshot.data.documents;
-                      if (clans.length > 0) {
-                        return ListView.builder(
-                            itemCount: clans.length,
-                            itemBuilder: (BuildContext ctxt, int index) {
-                              var _clanData = clans[index].data;
-                              return Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Container(
-                                  height: 80.0,
-                                  child: Card(
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Column(
-                                            children: <Widget>[
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  _clanData['clanName'],
-                                                  style:
-                                                      TextStyle(fontSize: 25.0),
-                                                ),
+                      List<Widget> clanList = [];
+                      if (clans.length <= 0) {
+                        return Text('No Clans Yet');
+                      } else {
+                        for (var clan in clans) {
+                          var _clanData = clan.data;
+                          clanList.add(
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Container(
+                                height: 80.0,
+                                child: Card(
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                _clanData['clanName'],
+                                                style:
+                                                    TextStyle(fontSize: 25.0),
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20.0),
-                                                child: Text(
-                                                  _clanData['clanID'],
-                                                  style: TextStyle(
-                                                      fontSize: 16.0,
-                                                      fontWeight:
-                                                          FontWeight.w300),
-                                                ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20.0),
+                                              child: Text(
+                                                _clanData['clanID'],
+                                                style: TextStyle(
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
                                               ),
-                                            ],
-                                          ),
-                                          IconButton(
-                                              icon: Icon(Icons.arrow_forward),
-                                              onPressed: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ClanChat(
-                                                                clanData:
-                                                                    _clanData,
-                                                                userID: id,
-                                                                user:
-                                                                    userName)));
-                                              })
-                                        ],
-                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                        IconButton(
+                                            icon: Icon(Icons.arrow_forward),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ClanChat(
+                                                              clanData:
+                                                                  _clanData,
+                                                              userID: id,
+                                                              user: userName)));
+                                            })
+                                      ],
                                     ),
                                   ),
                                 ),
-                              );
-                            });
-                      } else {
-                        return Text('No Clans Yet');
+                              ),
+                            ),
+                          );
+                        }
+                        return Column(
+                          children: clanList,
+                        );
                       }
                     } else {
                       return Text('No Clans Yet');

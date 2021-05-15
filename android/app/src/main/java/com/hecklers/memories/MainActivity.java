@@ -1,4 +1,4 @@
-package com.hecklers.memories;
+package memories.sihapp.com;
 
 import io.flutter.embedding.android.FlutterActivity;
 

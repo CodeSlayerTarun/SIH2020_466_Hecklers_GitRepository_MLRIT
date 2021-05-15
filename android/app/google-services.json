@@ -1,102 +1,34 @@
 {
   "project_info": {
-    "project_number": "18465913900",
-    "firebase_url": "https://heck-memories.firebaseio.com",
-    "project_id": "heck-memories",
-    "storage_bucket": "heck-memories.appspot.com"
+    "project_number": "666424918576",
+    "project_id": "memories-50211",
+    "storage_bucket": "memories-50211.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:18465913900:android:048908984495d91c9e2589",
+        "mobilesdk_app_id": "1:666424918576:android:b12eddfe415c86159ea3f5",
         "android_client_info": {
-          "package_name": "com.hecklers.memories"
+          "package_name": "memories.sihapp.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "18465913900-lgijvfon2u53an44nrgq0v35393datk7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hecklers.memories",
-            "certificate_hash": "a66d7606d7c17ba8570fae8c39f15beef9b2c632"
-          }
-        },
-        {
-          "client_id": "18465913900-nuss7slreqs3gshvtt4m8chmnber02d1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hecklers.memories",
-            "certificate_hash": "044567d82f0d7c69f9bb078e368adfdd19707f4d"
-          }
-        },
-        {
-          "client_id": "18465913900-lo08lqdkvb4j80uuutonrh6n377bo1b3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hecklers.memories",
-            "certificate_hash": "0366f7601e73628dc1f00d7bc7f3a92e8e338921"
-          }
-        },
-        {
-          "client_id": "18465913900-0u4623nuvhu4jq6dro181lvtbm8i7dn4.apps.googleusercontent.com",
+          "client_id": "666424918576-u50s5lvceoh6s7k0eqs5uge0dscmkv3p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC4Ln8e7L8hWmKkJz4FaZAeLwnJ9XxLQg8"
+          "current_key": "AIzaSyCoctz07cyxp8jQ0wWhE1rU-gG7lDpIS08"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "18465913900-0u4623nuvhu4jq6dro181lvtbm8i7dn4.apps.googleusercontent.com",
+              "client_id": "666424918576-u50s5lvceoh6s7k0eqs5uge0dscmkv3p.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "18465913900-2e6dtev6lm3q0v7laffrhrce4rm71mgu.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.hecklers.memories"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:18465913900:android:ce0e3066328e6a559e2589",
-        "android_client_info": {
-          "package_name": "com.temp.temp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "18465913900-0u4623nuvhu4jq6dro181lvtbm8i7dn4.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC4Ln8e7L8hWmKkJz4FaZAeLwnJ9XxLQg8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "18465913900-0u4623nuvhu4jq6dro181lvtbm8i7dn4.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "18465913900-2e6dtev6lm3q0v7laffrhrce4rm71mgu.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.hecklers.memories"
-              }
             }
           ]
         }
